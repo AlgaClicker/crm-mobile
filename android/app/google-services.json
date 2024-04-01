@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "296405864288",
+    "firebase_url": "https://alga-crm-system-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "alga-crm-system",
+    "storage_bucket": "alga-crm-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296405864288:android:01d70f245f07a8ab281805",
+        "android_client_info": {
+          "package_name": "com.example.mobile_alga_crm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296405864288-2305ekcqb15nmf9ro2ke77bt5kulpuna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkL9unKd49eqk2yZ4-cS_pYrUA4OH2oro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296405864288-2305ekcqb15nmf9ro2ke77bt5kulpuna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296405864288:android:00626a698907a975281805",
+        "android_client_info": {
+          "package_name": "com.example.mobile_fb_auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296405864288-2305ekcqb15nmf9ro2ke77bt5kulpuna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkL9unKd49eqk2yZ4-cS_pYrUA4OH2oro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296405864288-2305ekcqb15nmf9ro2ke77bt5kulpuna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296405864288:android:2270a9520c174ac3281805",
+        "android_client_info": {
+          "package_name": "ru.alga.crm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296405864288-2305ekcqb15nmf9ro2ke77bt5kulpuna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkL9unKd49eqk2yZ4-cS_pYrUA4OH2oro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296405864288-2305ekcqb15nmf9ro2ke77bt5kulpuna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
