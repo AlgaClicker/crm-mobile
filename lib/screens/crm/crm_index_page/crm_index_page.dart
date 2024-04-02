@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobile_alga_crm/bloc/application_bloc/application_bloc.dart';
 import 'package:mobile_alga_crm/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:mobile_alga_crm/helpers/api_client.dart';
@@ -11,6 +12,7 @@ import 'package:mobile_alga_crm/screens/crm/crm_requisition_pages/crm_requestion
 import 'package:mobile_alga_crm/screens/crm/crm_requisition_pages/crm_requisition_pages.dart';
 import 'package:mobile_alga_crm/screens/crm/specification/specification_page.dart';
 import 'package:go_router/go_router.dart';
+
 
 class CrmIndexPage extends StatelessWidget {
     final ApplicationBloc applicationBloc;
@@ -51,7 +53,15 @@ class CrmIndexPageBuilder extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   routerConfig:   GoRouter(
                     routes: _router.listRoutes()
-                  )
+                  ),
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('ru','RU'),
+                ]
                 );
             },
           );
@@ -84,7 +94,7 @@ class Router {
                 path: 'new',
                     builder: (BuildContext context, GoRouterState state) {
                       debugPrint("Router requestion/new");
-                    return CrmRequisitionPagesEdit();
+                    return const CrmRequisitionPagesEdit();
                   },
                 
               ),

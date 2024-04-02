@@ -77,7 +77,7 @@ class _CrmRequisitionPages extends StatelessWidget {
             child: const Text('полный список')
           ),
           TextButton(
-            onPressed: ()=>context.go('/requestion/new'), 
+            onPressed: ()=>context.go('/requestion/new/'), 
             child: const Text('Новая')
           ),
 

@@ -27,6 +27,7 @@ class ApiClient{
     }
     debugPrint("-------setBearerToken: $token");
     //final Str_token = token;
+   
     _api.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         options.headers['Authorization'] = "Bearer $token";
@@ -37,7 +38,6 @@ class ApiClient{
           debugPrint("DioError:  Token: $token");
           debugPrint(handler.toString());
           debugPrint(e.requestOptions.path);
-          return handler.next(e);
       }
     ));
     
