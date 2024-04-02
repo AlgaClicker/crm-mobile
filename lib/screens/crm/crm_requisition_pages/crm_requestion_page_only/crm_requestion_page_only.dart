@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_alga_crm/repository/crm/requisition_repository.dart';
 import 'package:mobile_alga_crm/screens/crm/crm_requisition_pages/crm_requestion_page_only/bloc/crm_requestion_page_only_bloc.dart';
 
@@ -30,13 +31,20 @@ class CrmRequestionpageOnlyBuild extends StatelessWidget {
         if (state is CrmRequestionPageOnlyStateInitial) {
           context.read<CrmRequestionPageOnlyBloc>().add(CrmRequestionPageOnlyEventInital(idRequestion: idReg));
         }
+
         if (state is CrmRequestionPageOnlyStateLoaded) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("Заявка ${state.requisition.number}"),
-          ),
-          body: Text(state.toString()),
-        );
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Заявка ${state.requisition.number} до ${DateFormat('dd/MM/yy').format(state.requisition.endAt)}"),
+            ),
+            body: Center(
+              child: Column(
+                children: [
+                  Text(state.requisition.manager.toString())
+                ],
+              ),
+            ),
+          );
         }
 
         return const Center(

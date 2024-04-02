@@ -78,9 +78,9 @@ class Router {
                       builder: (BuildContext context, GoRouterState state) {
                 return CrmRequisitionPages(apiClient: apiClient,);
               },
-          ),
-              GoRoute(
-                path: 'requestion/:id',
+              routes: [
+                GoRoute(
+                path: ':id',
                     builder: (BuildContext context, GoRouterState state) {
                     return CrmRequestionpageOnly(
                       requisitionRepository: requisitionRepository, 
@@ -89,6 +89,9 @@ class Router {
                   },
                 
               ),
+              ]
+          ),
+
 
           GoRoute(
             path: 'specification',
