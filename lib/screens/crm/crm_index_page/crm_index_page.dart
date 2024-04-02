@@ -6,6 +6,7 @@ import 'package:mobile_alga_crm/helpers/api_client.dart';
 import 'package:mobile_alga_crm/repository/crm/requisition_repository.dart';
 import 'package:mobile_alga_crm/repository/crm/specification_repository.dart';
 import 'package:mobile_alga_crm/screens/crm/crm_index_page/bloc/crm_index_page_bloc.dart';
+import 'package:mobile_alga_crm/screens/crm/crm_requisition_pages/crm_requestion_page_edit/crm_requestion_page_edit.dart';
 import 'package:mobile_alga_crm/screens/crm/crm_requisition_pages/crm_requestion_page_only/crm_requestion_page_only.dart';
 import 'package:mobile_alga_crm/screens/crm/crm_requisition_pages/crm_requisition_pages.dart';
 import 'package:mobile_alga_crm/screens/crm/specification/specification_page.dart';
@@ -79,6 +80,15 @@ class Router {
                 return CrmRequisitionPages(apiClient: apiClient,);
               },
               routes: [
+              GoRoute(
+                path: 'new',
+                    builder: (BuildContext context, GoRouterState state) {
+                      debugPrint("Router requestion/new");
+                    return CrmRequisitionPagesEdit();
+                  },
+                
+              ),
+
                 GoRoute(
                 path: ':id',
                     builder: (BuildContext context, GoRouterState state) {
@@ -89,6 +99,7 @@ class Router {
                   },
                 
               ),
+
               ]
           ),
 
