@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:mobile_alga_crm/domain/entity/crm/requisition.dart';
 import 'package:mobile_alga_crm/helpers/api_client.dart';
 import 'package:mobile_alga_crm/domain/entity/crm/object.dart';
 
 class RequisitionRepository {
   final ApiClient _api;
-  final Requisition? _requisition=null;
   final List<Requisition> _requisitions=[];
   
   RequisitionRepository({required ApiClient api}):_api=api;
@@ -17,8 +15,7 @@ class RequisitionRepository {
 
   Future<Requisition?> getRequisition(String id) async {
       final Map<String,dynamic> response = await _api.post('/api/v1/crm/master/requisition/$id/',{});
-      
-    return Requisition.fromMap(response['data']);
+      return Requisition.fromMap(response['data']);
   }
 
   Future<List<Requisition>> getListRequisitions() async {
@@ -26,16 +23,12 @@ class RequisitionRepository {
 
     if (response.toString() != 'empty') {
         _requisitions.clear();
-        //debugPrint("Заявки репозиторий ответ: ${response.toString()}");
         response['data'].forEach((element) async {
-          //debugPrint("Результат маппинга: ${Requisition.fromMap(element).toString()}");
-        _requisitions.add(Requisition.fromMap(element));
+          _requisitions.add(Requisition.fromMap(element));
         });
     } else {
       _requisitions.clear();
     }
     return _requisitions;
   }
-
-
 }

@@ -61,6 +61,7 @@ class CrmIndexPageBuilder extends StatelessWidget {
                 ],
                 supportedLocales: const [
                   Locale('ru','RU'),
+                  Locale('en','US'),
                 ]
                 );
             },
@@ -150,7 +151,7 @@ class _CrmIndexScreen  extends StatelessWidget {
         ),
 
         ElevatedButton.icon(
-          onPressed: () => context.go('/requestion'), 
+          onPressed: () => context.read<AuthenticationBloc>().add(AuthenticationEventLogOut()), 
           icon: const  Icon(Icons.exit_to_app), 
           label: const Text('Выход')
         ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_alga_crm/bloc/application_bloc/application_bloc.dart';
 import 'package:mobile_alga_crm/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:mobile_alga_crm/screens/login_page/bloc/login_page_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 class LoginPage extends StatelessWidget {
@@ -12,6 +13,14 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: LoginPage1(),
+      localizationsDelegates:  [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales:  [
+          Locale('ru','RU'),
+      ]
     );
   }  
 }

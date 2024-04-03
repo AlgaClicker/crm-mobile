@@ -5,6 +5,6 @@ abstract class CrmRequestionPageEditEvent {
 }
 final class CrmRequestionPageEditEventinital extends CrmRequestionPageEditEvent{}
 final class CrmRequestionPageEditEventSelectEndDate extends CrmRequestionPageEditEvent{
-  final DateTime endAt;
+final DateTime endAt;
   CrmRequestionPageEditEventSelectEndDate({required this.endAt});
 }
