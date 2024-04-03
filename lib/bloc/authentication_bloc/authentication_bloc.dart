@@ -32,34 +32,31 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   _authenticationEventInital(AuthenticationEventInital event, Emitter<AuthenticationState> emit) async {
     debugPrint("_authenticationEventInital");
       final User? user = FirebaseAuth.instance.currentUser;
-
       if (user is User) {
+          await user.getIdTokenResult().then((result) async {
+            debugPrint("Result Token Set");    
+              await authenticationRepository.setToken(result.token.toString()); 
+          }); 
+
           if (user.refreshToken != null) {
               debugPrint("refreshToken:Not null");
-              debugPrint("!!!!!!USER: ${user.toString()}");
-              final String token = await authenticationRepository.signInWithRefreshToken(user.refreshToken.toString());
-              if (token.isNotEmpty) {
+              //debugPrint("!!!!!!USER: ${user.toString()}");
+              final String? token = await authenticationRepository.signInWithRefreshToken(user.refreshToken.toString()); 
+              if (token != null) {
                 authenticationRepository.setToken(token);
                 final Account account = await authenticationRepository.getMe();
                 if (account.id=='0') {
                   return emit(AuthenticationStateLogOut());
+                } else {
+                  return emit(AuthenticationStateAuthTrue(account: account));      
                 }
-                return emit(AuthenticationStateAuthTrue(account: account));      
               }
-             // 
-          } else {
-            debugPrint("refreshToken:null  Token: ${user.refreshToken.toString()}");
-            //final Account account = await authenticationRepository.getMe();
-            //debugPrint(FirebaseAuth.instance.currentUser.toString());
-          }
-          //
-          
+          }  else {
           final Account account = await authenticationRepository.getMe();
-          debugPrint("==========Account");
-          debugPrint(account.toString());
           if (account.id != '0') {
               return emit(AuthenticationStateAuthTrue(account: account));
-          }
+          } 
+        }
       }
 
     return emit(AuthenticationStateLogOut());
@@ -67,18 +64,18 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   _authenticationEventLogIn(AuthenticationEventLogIn event, Emitter<AuthenticationState> emit) async {
     debugPrint("_authenticationEventLogIn ");
-    debugPrint(event.usrname);
-    debugPrint(event.password);
+    //debugPrint(event.usrname);
+    //debugPrint(event.password);
     final Account account = await authenticationRepository.logIn(event.usrname, event.password);
-    debugPrint(account.toString());
+    //debugPrint(account.toString());
     //debugPrint(authenticationRepository.getToken());
 
     if (account.username != 'guest' ) {
       try {
         
-          UserCredential userCredential = await FirebaseAuth.instance.signInWithCustomToken(authenticationRepository.getToken());
+          await FirebaseAuth.instance.signInWithCustomToken(authenticationRepository.getToken());
           debugPrint("userCredential.user.toString()");
-          debugPrint(userCredential.user.toString());
+          //debugPrint(userCredential.user.toString());
           return emit(AuthenticationStateAuthTrue(account: account));
       } catch (e) {
         debugPrint(e.toString());

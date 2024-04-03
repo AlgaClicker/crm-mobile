@@ -21,21 +21,21 @@ class ApiClient{
       );
   }
 
-  Future<void> setBearerToken(String token) async {
+  Future<void> setBearerToken(String token) async { 
     if (token.isEmpty) {
       return;
     }
-    debugPrint("-------setBearerToken: $token");
+    //debugPrint("-------setBearerToken: $token"); 
     //final Str_token = token;
    
     _api.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         options.headers['Authorization'] = "Bearer $token";
-        //debugPrint("_api.interceptors.add SetToken: $token");
+        //debugPrint("_api.interceptors.add SetToken: $token"); 
         return handler.next(options);
       },
       onError: (DioError e, handler) async {
-          debugPrint("DioError:  Token: $token");
+          debugPrint("DioError: Ошибка соеднения ${e.response?.statusCode.toString()} Token: $token"); 
           debugPrint(handler.toString());
           debugPrint(e.requestOptions.path);
       }

@@ -18,8 +18,9 @@ class AuthenticationRepository {
 
 
   Future<Account> getMe() async {
-    final Map<String,dynamic> response = await _api.post('/auth/me',{});
-    
+    debugPrint("AuthenticationRepository:getMe()");
+    final Map<String,dynamic> response = await _api.post('/auth/me',{}); 
+    debugPrint("response: ${response.toString()}");
     if ( !response.containsKey('error')) {
       return Account.fromMap(response['data']);
     } else {
@@ -31,7 +32,7 @@ class AuthenticationRepository {
     return Account(id: '0');
   }
 
-  Future<String> signInWithRefreshToken(String refreshToken ) async {
+  Future<String?> signInWithRefreshToken(String refreshToken ) async {
     final Map<String,dynamic> response = await _api.post('/auth/refresh-token', {'refresh_token':refreshToken});
       if (response.containsKey('data')) {
         _token = response['data'];
@@ -39,15 +40,13 @@ class AuthenticationRepository {
           return _token;
       }
 
-    return '';
+    return null; 
   }
 
   Future<Account> logIn(String username, String password) async {
 
       final Map<String,dynamic> response = await _api.post('/auth/login', {'username':username,'password':password});
-      debugPrint('response');
-      debugPrint(response.toString());
-      
+
       if ( response.containsKey('error') && !response.containsKey('data')) {
         return Account(id: '0');
       }

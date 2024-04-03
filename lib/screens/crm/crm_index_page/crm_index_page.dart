@@ -78,6 +78,7 @@ class Router {
 
    listRoutes() {
     final RequisitionRepository requisitionRepository = RequisitionRepository(api: apiClient);
+    final SpecificationRepository specificationRepository = SpecificationRepository(api: apiClient);
     return [
       GoRoute(
         path: '/',
@@ -95,7 +96,10 @@ class Router {
                 path: 'new',
                     builder: (BuildContext context, GoRouterState state) {
                       debugPrint("Router requestion/new");
-                    return const CrmRequisitionPagesEdit();
+                    return  CrmRequisitionPagesEdit(
+                      requisitionRepository: requisitionRepository,
+                      specificationRepository: specificationRepository,
+                    );
                   },
                 
               ),
@@ -136,26 +140,35 @@ class _CrmIndexScreen  extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Text("_CrmIndexScreen"),
-      persistentFooterAlignment: AlignmentDirectional.bottomCenter,
+      appBar: AppBar(
+        title: Text("Главная"),
+      ),
+      body: Container(
+        child: Text(context.toString()),
+      ),
+      persistentFooterAlignment: AlignmentDirectional.bottomCenter, 
       persistentFooterButtons: [
-        ElevatedButton.icon(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+          ElevatedButton.icon(
           onPressed: () => context.go('/requestion'), 
           icon: const  Icon(Icons.format_list_bulleted), 
           label: const Text('Заявки')
         ),
         ElevatedButton.icon(
           onPressed: () => context.go('/specification'), 
-          icon: const  Icon(Icons.folder_special), 
-          label: const Text('Спецификации')
+          icon: const  Icon(Icons.folder_special),  
+          label: const Text('Спек')
         ),
-
-        ElevatedButton.icon(
+        ElevatedButton(
           onPressed: () => context.read<AuthenticationBloc>().add(AuthenticationEventLogOut()), 
-          icon: const  Icon(Icons.exit_to_app), 
-          label: const Text('Выход')
+          
+          child: const  Icon(Icons.exit_to_app)
         ),
 
+          ],
+        )
       ],
     );
   }
@@ -204,7 +217,7 @@ class _CrmIndexPage extends StatelessWidget {
                 ),
 
               ),
-              persistentFooterAlignment: AlignmentDirectional.bottomCenter,
+              persistentFooterAlignment: AlignmentDirectional.center,
               persistentFooterButtons: [
                   TextButton(
                     onPressed: ()=> context.read<CrmIndexPageBloc>().add(CrmIndexPageEventListSpec()), 

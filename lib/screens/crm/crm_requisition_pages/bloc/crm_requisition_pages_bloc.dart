@@ -14,9 +14,9 @@ class CrmRequisitionPagesBloc extends Bloc<CrmRequisitionPageEvent, CrmRequisiti
   }
 
   _crmRequisitionPageEventInital(CrmRequisitionPageEventInital event, Emitter<CrmRequisitionPagesState> emit) async {
-
-    emit(CrmRequisitionPagesInitial());
-    //add(CrmRequisitionPageEventLoadRequisitions());
+    add(CrmRequisitionPageEventLoadRequisitions());
+    return emit(CrmRequisitionPagesInitial());
+    
   }
 
 

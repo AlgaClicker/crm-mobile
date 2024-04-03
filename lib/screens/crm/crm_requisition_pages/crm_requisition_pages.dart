@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:mobile_alga_crm/domain/entity/crm/requisition.dart';
 import 'package:mobile_alga_crm/helpers/api_client.dart';
 import 'package:mobile_alga_crm/repository/crm/requisition_repository.dart';
-import 'package:mobile_alga_crm/screens/crm/crm_index_page/bloc/crm_index_page_bloc.dart';
 import 'package:mobile_alga_crm/screens/crm/crm_requisition_pages/bloc/crm_requisition_pages_bloc.dart';
 
 
@@ -15,6 +14,7 @@ class CrmRequisitionPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RequisitionRepository requisitionRepository = RequisitionRepository(api: apiClient);
+    
     return RepositoryProvider(
       create: (context) => requisitionRepository,
       child: BlocProvider(
@@ -29,9 +29,11 @@ class _CrmRequisitionPagesBuild extends StatelessWidget {
   const _CrmRequisitionPagesBuild();
   @override
   Widget build(BuildContext context) {
+    
     return BlocBuilder<CrmRequisitionPagesBloc,CrmRequisitionPagesState>(
       builder:(context, state) {
         context.read<CrmRequisitionPagesBloc>().add(CrmRequisitionPageEventInital());
+        //context.read<CrmRequisitionPagesBloc>().add(CrmRequisitionPageEventLoadRequisitions());
         return const _CrmRequisitionPages();
       },
       
@@ -57,31 +59,26 @@ class _CrmRequisitionPages extends StatelessWidget {
         ],
       ),
       body: const _CrmRequisitionPageScaffoldBody(),
-      persistentFooterAlignment: AlignmentDirectional.bottomStart,
+      persistentFooterAlignment: AlignmentDirectional.center,
       
       persistentFooterButtons: [
-          IconButton(
-            onPressed: ()=>{}, 
-            icon: const Icon(Icons.handyman)
-          ),
-          TextButton(
-            onPressed: ()=>context.read<CrmIndexPageBloc>().add(CrmIndexPageEventInital()), 
-            child: const Text('Главная')
-          ),
-          TextButton(
-            onPressed: ()=>{}, 
-            child: const Text('У менеджера')
-          ),
-          TextButton(
-            onPressed: ()=>context.read<CrmRequisitionPagesBloc>().add(CrmRequisitionPageEventLoadRequisitions()), 
-            child: const Text('полный список')
-          ),
-          TextButton(
-            onPressed: ()=>context.go('/requestion/new/'), 
-            child: const Text('Новая')
-          ),
-
-
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              onPressed: ()=>{}, 
+              icon: const Icon(Icons.handyman)
+            ),
+            TextButton(
+              onPressed: ()=>context.read<CrmRequisitionPagesBloc>().add(CrmRequisitionPageEventLoadRequisitions()), 
+              child: const Text('полный список')
+            ),
+            TextButton(
+              onPressed: ()=>context.go('/requestion/new/'), 
+              child: const Icon(Icons.add)
+            ),
+          ],
+          )
       ],
     );
   }
@@ -95,7 +92,6 @@ class _CrmRequisitionPageScaffoldBody extends StatelessWidget {
     @override
   Widget build(BuildContext context) {
     context.read<CrmRequisitionPagesBloc>().add(CrmRequisitionPageEventInital());
-
     return Container(
       alignment: Alignment.topCenter,
       child: BlocBuilder<CrmRequisitionPagesBloc,CrmRequisitionPagesState>(
@@ -120,12 +116,25 @@ class _CrmRequisitionPageScaffoldBody extends StatelessWidget {
 
 class _CrmRequisitionWidgetList extends StatelessWidget {
   final List<Requisition> requisitions;
-  const _CrmRequisitionWidgetList({required this.requisitions});
+  _CrmRequisitionWidgetList({required this.requisitions});
+  final ScrollController controller = ScrollController();
+  
       @override
   Widget build(BuildContext context) {
+    controller.addListener(() async { 
+      debugPrint("ListWiev: ${controller.position.toString()}");
+      if (controller.position.pixels == 0) {
+        //context.read<CrmRequisitionPagesBloc>().add(CrmRequisitionPageEventLoadRequisitions());
+      }
+    }); 
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: ListView.builder(
+        child: RefreshIndicator(
+          onRefresh: () async {
+              context.read<CrmRequisitionPagesBloc>().add(CrmRequisitionPageEventLoadRequisitions());
+          },
+          child: ListView.builder(
+          controller: controller,
           itemCount: requisitions.length,
           itemBuilder: (context,index) {
             
@@ -137,6 +146,7 @@ class _CrmRequisitionWidgetList extends StatelessWidget {
               child: _CrmRequisitionWidget(requisition: requisition),
             );
           }
+        ),
         ),
       );
   }
