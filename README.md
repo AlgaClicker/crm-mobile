@@ -1,4 +1,4 @@
-# mobile_alga_crm
+# mobile_app
 
 A new Flutter project.
 
