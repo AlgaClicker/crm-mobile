@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app/Utils/dio_client.dart';
 import 'package:mobile_app/BLoC/AuthBloc/auth_bloc.dart';
@@ -14,12 +15,12 @@ import 'package:mobile_app/Repositories/master_requisitions_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Инициализация Flutter
+  await initializeDateFormatting('ru', null);
   final DioClient dioClient = DioClient();
   final authService = AuthService(dio: dioClient.dio);
-  await authService
-      .initialize(); // Инициализация AuthService с проверкой токена
-
+  await authService.initialize(); // Инициализация AuthService с проверкой токена
   runApp(MyApp(dioClient: dioClient, authService: authService));
+
 }
 
 class MyApp extends StatelessWidget {

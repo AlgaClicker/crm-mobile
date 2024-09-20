@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:mobile_app/Domain/Systems/unit.dart';
 import 'package:mobile_app/Domain/Directory/directory_material.dart';
 
@@ -21,8 +20,6 @@ class RequisitionMaterials {
   });
 
   factory RequisitionMaterials.fromJson(Map<String, dynamic> json) {
-    //debugPrint("RequisitionMaterials.fromJson");
-    //debugPrint(json['directory_material'].toString());
     return RequisitionMaterials(
       id: json['id'] as String,
       materialName: json['materialName'] ?? '' as String?,
@@ -30,9 +27,7 @@ class RequisitionMaterials {
           ? DirectoryMaterial.fromJson(
               json['directory_material'] as Map<String, dynamic>)
           : null, // Преобразование к DirectoryMaterial, если присутствует
-      quantity: json['quantity'] != null
-          ? json['quantity'] ?? 0 as double
-          : null, // Приведение к int
+      quantity: json['quantity'].toDouble() ?? 0 as double,
       unit: json['unit'] != null
           ? Unit.fromJson(json['unit'] as Map<String, dynamic>)
           : null, // Преобразование к Unit, если присутствует

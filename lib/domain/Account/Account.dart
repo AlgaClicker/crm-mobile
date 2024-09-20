@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobile_app/Domain/Account/Roles.dart';
 
 import '../Company/workpeople.dart'; // Импортируем Workpeople
@@ -22,6 +23,9 @@ class Account {
   });
 
   factory Account.fromJson(Map<String, dynamic> json) {
+    debugPrint("Account.fromJson");
+    debugPrint(json.toString());
+    
     return Account(
       id: json['id'] as String,
       username: json['username'] as String,

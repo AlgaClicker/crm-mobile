@@ -4,7 +4,7 @@ class SpecificationMaterial {
   final String id;
   final String name;
   final String unit;
-  final int quantity;
+  final double quantity;
 
   SpecificationMaterial({
     required this.id,
@@ -18,9 +18,9 @@ class SpecificationMaterial {
     debugPrint(json.toString());
     return SpecificationMaterial(
       id: json['id'],
-      name: json['name'],
-      unit: json['unit'],
-      quantity: json['quantity'],
+      name: json['name'] ?? "",
+      unit: json['unit'] ?? '',
+      quantity: json['quantity'] ?? 0,
     );
   }
 }
