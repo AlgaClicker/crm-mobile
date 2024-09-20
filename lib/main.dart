@@ -13,6 +13,7 @@ import 'package:mobile_app/Screens/master/master_teams_page.dart';
 import 'package:mobile_app/Screens/master/master_specifications_page.dart';
 import 'package:mobile_app/Repositories/master_requisitions_repository.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Инициализация Flutter
   await initializeDateFormatting('ru', null);

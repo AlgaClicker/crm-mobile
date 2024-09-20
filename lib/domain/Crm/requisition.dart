@@ -76,7 +76,7 @@ class Requisition {
       'description': description,
       'materials': materials?.map((item) => item.toJson()).toList(),
       'specification': specification?.toJson(),
-      'manager': manager?.toJson(),
+      'manager': specification?.toJson(),
     };
   }
 }

@@ -60,7 +60,9 @@ class _MasterRequisitionsPageState extends State<MasterRequisitionsPage> {
         title: const Text('Список заявок'),
         actions: [
           IconButton(
-            onPressed: ()=>{}, 
+            onPressed: ()=>{
+              Navigator.pushNamed(context, '/master/create-requisition')
+            }, 
             icon: Icon(Icons.add)
           )
         ],

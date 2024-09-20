@@ -43,4 +43,20 @@ class MasterRequisitionsRepository {
       throw Exception('Failed to load requisitions: $e');
     }
   }
+
+  Future<void> createRequisition(Requisition requisition) async {
+    try {
+      final response = await _dio.post(
+        '/api/v1/crm/master/requisition', // Пример URL, замените на ваш
+        data: requisition.toJson(),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Ошибка при создании заявки: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Ошибка при создании заявки: $e');
+    }
+  }
+  
 }
