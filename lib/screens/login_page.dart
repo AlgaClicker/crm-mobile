@@ -11,10 +11,19 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _usernameController.text = "master24";
-    _passwordController.text = "master24";
+    //_usernameController.text = "master24";
+    //_passwordController.text = "master24";
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(
+        title: Text('Авторизация'),
+        actions: [
+          IconButton(
+            onPressed: () => {},
+            icon: const Icon(Icons.help),
+            tooltip: "Помощь",
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -22,15 +31,15 @@ class LoginPage extends StatelessWidget {
             if (errorMessage != null)
               Text(
                 errorMessage!,
-                style: TextStyle(color: Colors.red),
+                style: const TextStyle(color: Colors.red),
               ),
             TextField(
               controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Username'),
+              decoration: const InputDecoration(labelText: 'Имя пользователя'),
             ),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
+              decoration: const InputDecoration(labelText: 'Пароль'),
               obscureText: true,
             ),
             const SizedBox(height: 20),
@@ -43,7 +52,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Login'),
+              child: const Text('Вход'),
             ),
           ],
         ),

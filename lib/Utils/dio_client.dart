@@ -5,7 +5,7 @@ class DioClient {
 
   Dio get dio => _dio;
   DioClient() {
-    _dio.options.baseUrl = "http://192.168.0.210:8888";
+    _dio.options.baseUrl = "https://cms.alga-corp.ru/";
     _dio.options.headers = {
       "Content-Type": "application/json",
     };
