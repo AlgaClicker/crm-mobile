@@ -12,13 +12,19 @@ import 'package:mobile_app/Screens/master/master_requisitions_page.dart';
 import 'package:mobile_app/Screens/master/master_teams_page.dart';
 import 'package:mobile_app/Screens/master/master_specifications_page.dart';
 import 'package:mobile_app/Repositories/master_requisitions_repository.dart';
-
+import 'package:mobile_app/Screens/master/CreateRequisitionPage/master_create_requisition_page .dart';
+import 'package:mobile_app/Screens/master/CreateRequisitionPage/create_page_requisition_bloc.dart';
+import 'package:mobile_app/Repositories/master_specifications_repository.dart';
+import 'package:mobile_app/bloc/Specifications/specifications_bloc.dart';
+import 'package:mobile_app/Screens/master/Specification/master_specifications_page_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Инициализация Flutter
   await initializeDateFormatting('ru', null);
   final DioClient dioClient = DioClient();
   final authService = AuthService(dio: dioClient.dio);
+  
+
   await authService.initialize(); // Инициализация AuthService с проверкой токена
   runApp(MyApp(dioClient: dioClient, authService: authService));
 
@@ -27,11 +33,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   final DioClient dioClient;
   final AuthService authService;
-
+  
   MyApp({required this.dioClient, required this.authService});
 
   @override
   Widget build(BuildContext context) {
+    final masterSpecificationsRepository = MasterSpecificationsRepository(dioClient.dio);
     final masterRequisitionsRepository =
         MasterRequisitionsRepository(dioClient.dio);
     return MultiBlocProvider(
@@ -39,6 +46,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               AuthBloc(dioClient: dioClient, authService: authService),
+        ),
+        BlocProvider(
+          create: (context) =>
+              SpecificationsBloc(repository: masterSpecificationsRepository),
         ),
       ],
       child: MaterialApp(
@@ -52,7 +63,18 @@ class MyApp extends StatelessWidget {
           '/master/requisitions': (context) => MasterRequisitionsPage(
               masterRequisitionsRepository: masterRequisitionsRepository),
           '/master/teams': (context) => MasterTeamsPage(),
-          '/master/specifications': (context) => MasterSpecificationsPage(),
+          '/master/specifications': (context) => BlocProvider(
+              create: (context) => MasterSpecificationsPageBloc(
+                masterSpecificationsRepository: masterSpecificationsRepository,
+              ),
+              child: MasterSpecificationsPage(),
+            ),
+          // Добавляем маршрут для создания заявки
+          '/master/requisition/new': (context) => BlocProvider(
+                create: (context) => MasterPageRequisitionBloc(
+                    requisitionRepository: masterRequisitionsRepository),
+                child: CreateRequisitionPage(),
+              ),
           '/supply': (context) => SupplyPage(),
           '/upravlenie': (context) => UpravleniePage(),
         },

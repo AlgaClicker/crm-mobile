@@ -61,7 +61,7 @@ class _MasterRequisitionsPageState extends State<MasterRequisitionsPage> {
         actions: [
           IconButton(
             onPressed: ()=>{
-              Navigator.pushNamed(context, '/master/create-requisition')
+              Navigator.pushNamed(context, '/master/requisition/new')
             }, 
             icon: Icon(Icons.add)
           )
